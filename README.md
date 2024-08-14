@@ -2,6 +2,6 @@
  
 Learning Goals
 
-Explain variables and data types in Python
-Summarize the use of objects in Python
-Create a data structure for your Recipe app
+Implement conditional statements in Python to determine program flow
+Use loops to reduce time and effort in Python programming
+Write functions to organize Python code
