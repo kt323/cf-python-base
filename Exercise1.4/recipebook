@@ -1,0 +1,8 @@
+import pickle
+
+with open('recipebook.pkl', 'rb') as file:
+    try:
+        data = pickle.load(file)
+        print(data)
+    except EOFError:
+        print("The file is empty or corrupted.")
