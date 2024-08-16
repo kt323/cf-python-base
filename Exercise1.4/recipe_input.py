@@ -27,29 +27,22 @@ try:
     with open(filename, 'rb') as file:
         data = pickle.load(file)
 except FileNotFoundError:
-    data = {'recipes_list': [], 'all_ingredients': []}
+    data = {'recipes': [], 'all_ingredients': []}
 except Exception as e:
     print("An error occurred:", e)
-else:
-    file.close()
-finally:
-    recipes_list = data['recipes_list']
-    all_ingredients = data['all_ingredients']
-    
-n = int(input("How many recipes would you like to enter? "))
+    data = {'recipes': [], 'all_ingredients': []}
 
+n = int(input("How many recipes would you like to enter? "))
 for _ in range(n):
     recipe = take_recipe()
-    recipes_list.append(recipe)
+    data['recipes'].append(recipe)
     for ingredient in recipe['ingredients']:
-        if ingredient not in all_ingredients:
-            all_ingredients.append(ingredient)
-
-data = {'recipes_list': recipes_list, 'all_ingredients': all_ingredients}
+        if ingredient not in data['all_ingredients']:
+            data['all_ingredients'].append(ingredient)
 
 try:
-    filename = input("Enter the filename to open: ")
-    with open(filename, 'wb') as file:
-        data = pickle.dump(file)
+    with open('recipebook', 'wb') as file:
+        pickle.dump(data, file)
+    print("Data saved successfully to 'recipebook'")
 except Exception as e:
     print("An error occurred while saving data:", e)

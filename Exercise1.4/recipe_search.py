@@ -9,12 +9,7 @@ def display_recipe(recipe):
     print(f"Difficulty level: {recipe['difficulty']}")
 
 def search_ingredient(data):
-    all_ingredients = set()
-    for recipe in data["recipes"]:
-        all_ingredients.update(recipe['ingredients'])
-    
-    all_ingredients = list(all_ingredients)
-    
+    all_ingredients = data['all_ingredients']
     for i, ingredient in enumerate(all_ingredients):
         print(f"{i+1}. {ingredient}")
     
@@ -24,7 +19,7 @@ def search_ingredient(data):
     except (ValueError, IndexError):
         print("Invalid input. Please enter a valid number.")
         return
-    
+
     found_recipes = [recipe for recipe in data["recipes"] if ingredient_searched in recipe['ingredients']]
     
     if found_recipes:
@@ -35,12 +30,12 @@ def search_ingredient(data):
         print(f"No recipes found containing {ingredient_searched}.")
 
 try:
-    filename = input("Enter the filename that contains your recipe data: ")
-    with open(filename, 'rb') as file:
+    with open('recipebook', 'rb') as file:
         data = pickle.load(file)
+    search_ingredient(data)
 except FileNotFoundError:
-    print("File not found.")
+    print("File 'recipebook' not found.")
 except EOFError:
     print("The file is empty or corrupted.")
-else:
-    search_ingredient(data)
+except Exception as e:
+    print(f"An error occurred: {e}")
