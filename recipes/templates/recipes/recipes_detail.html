@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }} - Recipe Detail</title>
+    <style>
+        /* Basic resets */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #51716e;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #d6e9e4;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1em;
+            display: inline-block;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .recipe-detail {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .recipe-detail img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .recipe-info {
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+
+        .recipe-info p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .recipe-info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ recipe.name }}</h1>
+        </div>
+
+        <div class="back-button">
+            <a href="javascript:history.back()">&larr; Back</a>
+        </div>
+
+        <div class="recipe-detail">
+            <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}">
+            <div class="recipe-info">
+                <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
+                <p><strong>Difficulty:</strong> {{ recipe.difficulty }}</p>
+                <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+                <p><strong>Description:</strong> {{ recipe.description }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

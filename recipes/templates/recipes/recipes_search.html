@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Search</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            font-size: large;
+            background-color: #51716e;
+            padding: 40px;
+        }
+        .navbar-custom {
+            background-color: #333837;
+        }
+        .navbar-custom a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .recipe-card {
+            background-color: #d6e9e4;
+            border: 1px solid #d6e9e4;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .recipe-card:hover {
+            transform: scale(1.05);
+        }
+        .recipe-card a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .recipe-card a:hover {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'recipes:home' %}">Home</a>
+            <div class="ml-auto">
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Recipes' Search</h1>
+        <div class="back-button">
+            <a href="{% url 'recipes:list' %}" class="btn btn-secondary mb-3">Back</a>
+        </div>
+
+        <div class="search-bar mb-4">
+            <form method="POST" action="" class="form-inline">
+                {% csrf_token %}
+                <div class="form-group mr-2">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <div class="search-results mt-4">
+            {% if recipes_df %}
+            <h2>Recipes Data</h2>
+                {{ recipes_df|safe }}
+                <div class="search-chart mt-3">
+                    <img src="data:image/png;base64,{{ chart|safe }}" alt="Search Chart">
+                </div>
+            {% else %}
+                <p class="text-center mt-3">No recipes found. Please try another search.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
